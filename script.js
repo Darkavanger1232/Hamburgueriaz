@@ -1,7 +1,7 @@
 let carrinho = [];
 let categoriaAtual = "todos";
 
-// 🍔 CARDÁPIO
+// CARDÁPIO
 const hamburgueres = [
     {
         nome: "Clássico",
@@ -20,118 +20,142 @@ const hamburgueres = [
         preco: 30,
         categoria: "premium",
         img: "https://images.unsplash.com/photo-1606755962773-d324e0a13086"
-    },
-    {
-        nome: "Vegano",
-        preco: 22,
-        categoria: "vegano",
-        img: "https://images.unsplash.com/photo-1544025162-d76694265947"
     }
 ];
 
-// 🔐 LOGIN
-function login(){
-    let e = document.getElementById("email").value;
-    let s = document.getElementById("senha").value;
+// EXTRAS
+const extras = [
+    { nome: "Bacon", preco: 2 },
+    { nome: "Queijo", preco: 2 },
+    { nome: "Ovo", preco: 2 }
+];
 
-    if(e === "admin" && s === "123"){
-        document.getElementById("login").style.display = "none";
-        document.getElementById("app").style.display = "block";
-        carregarCardapio();
-    } else {
-        alert("Login inválido");
-    }
-}
+// BEBIDAS
+const bebidas = [
+    { nome: "Coca 1L", preco: 8 },
+    { nome: "Coca 2L", preco: 12 }
+];
 
-// 🍔 RENDER
+// RENDER
 function carregarCardapio(){
     let div = document.getElementById("cardapio");
     div.innerHTML = "";
 
-    hamburgueres.forEach((h, index) => {
+    hamburgueres.forEach((h, i) => {
 
         if(categoriaAtual !== "todos" && h.categoria !== categoriaAtual){
             return;
         }
 
+        let extrasHTML = extras.map(e =>
+            `<label><input type="checkbox" value="${e.preco}"> ${e.nome}</label><br>`
+        ).join("");
+
+        let bebidasHTML = bebidas.map(b =>
+            `<option value="${b.preco}">${b.nome}</option>`
+        ).join("");
+
         div.innerHTML += `
         <div class="card">
 
-            <img src="${h.img}?w=400"
-            onerror="this.src='https://via.placeholder.com/400x250?text=Hamburguer'">
+            <img src="${h.img}" 
+            onerror="this.src='https://via.placeholder.com/300'">
 
             <h3>${h.nome}</h3>
-            <p><strong>R$ ${h.preco}</strong></p>
+            <p>R$ ${h.preco}</p>
 
-            <button onclick="addCarrinho(${index})">
-                Adicionar
-            </button>
+            ${extrasHTML}
+
+            <select>
+                <option value="0">Sem bebida</option>
+                ${bebidasHTML}
+            </select>
+
+            <div class="qtd">
+                <button onclick="diminuir(this)">-</button>
+                <span>1</span>
+                <button onclick="aumentar(this)">+</button>
+            </div>
+
+            <button onclick="addCarrinho(${i}, this)">Adicionar</button>
 
         </div>
         `;
     });
 }
 
-// 🔎 FILTRO
+// FILTRO
 function filtrar(cat){
     categoriaAtual = cat;
     carregarCardapio();
 }
 
-// 🛒 ADD
-function addCarrinho(index){
-
-    carrinho.push({
-        nome: hamburgueres[index].nome,
-        preco: hamburgueres[index].preco
-    });
-
-    atualizarCarrinho();
+// QTD
+function aumentar(btn){
+    let s = btn.parentElement.querySelector("span");
+    s.innerText++;
 }
 
-// 🔄 ATUALIZA
-function atualizarCarrinho(){
-    let lista = document.getElementById("carrinho");
+function diminuir(btn){
+    let s = btn.parentElement.querySelector("span");
+    if(s.innerText > 1) s.innerText--;
+}
+
+// ADD
+function addCarrinho(i, btn){
+    let card = btn.parentElement;
+
+    let checks = card.querySelectorAll("input");
+    let select = card.querySelector("select");
+    let qtd = parseInt(card.querySelector("span").innerText);
+
+    let total = hamburgueres[i].preco;
+
+    checks.forEach(c => {
+        if(c.checked) total += parseInt(c.value);
+    });
+
+    total += parseInt(select.value);
+    total *= qtd;
+
+    carrinho.push({
+        nome: hamburgueres[i].nome,
+        preco: total,
+        qtd
+    });
+
+    atualizar();
+}
+
+// ATUALIZAR
+function atualizar(){
+    let lista = document.getElementById("carrinhoLista");
     let total = 0;
 
     lista.innerHTML = "";
 
-    carrinho.forEach((p, i) => {
-
+    carrinho.forEach((p,i)=>{
         total += p.preco;
 
         lista.innerHTML += `
         <li>
-            ${p.nome} - R$ ${p.preco}
+            ${p.nome} x${p.qtd} - R$ ${p.preco}
             <button onclick="remover(${i})">❌</button>
-        </li>
-        `;
+        </li>`;
     });
 
-    document.getElementById("totalFinal").innerText = total;
+    document.getElementById("total").innerText = total;
 }
 
-// ❌ REMOVER
+// REMOVER
 function remover(i){
     carrinho.splice(i,1);
-    atualizarCarrinho();
+    atualizar();
 }
 
-// 📧 FINALIZAR
-function enviarPedido(){
-
-    if(carrinho.length === 0){
-        alert("Carrinho vazio!");
-        return;
-    }
-
-    let msg = "Pedido HamburgueriaZ:\n\n";
-
-    carrinho.forEach(p => {
-        msg += `${p.nome} - R$ ${p.preco}\n`;
-    });
-
-    window.location.href = `mailto:?subject=Pedido&body=${encodeURIComponent(msg)}`;
+// FINALIZAR
+function finalizar(){
+    alert("Pedido enviado!");
 }
 
 // INIT

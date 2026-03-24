@@ -1,78 +1,96 @@
 body {
+    margin: 0;
     font-family: Arial;
-    background: #f2f2f2;
+    background: #f5f5f5;
+}
+
+/* HEADER */
+header {
+    background: #EA1D2C;
+    color: white;
     text-align: center;
+    padding: 10px;
 }
 
 .logo {
-    width: 120px;
-    margin: 10px;
+    width: 80px;
 }
 
-#login, #app {
-    max-width: 900px;
-    margin: auto;
-    background: white;
+/* LAYOUT */
+.container {
+    display: flex;
+    gap: 20px;
     padding: 20px;
-    border-radius: 12px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
 }
 
-#app {
-    display: none;
-}
-
-.filtros {
-    margin-bottom: 15px;
-}
-
-.filtros button {
-    width: auto;
-    padding: 8px 12px;
-    margin: 3px;
+/* MENU */
+.menu {
+    flex: 3;
 }
 
 .grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
     gap: 15px;
 }
 
+/* CARD */
 .card {
-    background: #fff;
-    padding: 12px;
-    border-radius: 10px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
+    background: white;
+    border-radius: 12px;
+    padding: 10px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
 }
 
 .card img {
     width: 100%;
-    height: 150px;
+    height: 160px;
     object-fit: cover;
-    border-radius: 8px;
+    border-radius: 10px;
 }
 
+.card h3 {
+    margin: 10px 0 5px;
+}
+
+/* FILTROS */
+.filtros button {
+    background: #EA1D2C;
+    color: white;
+    border: none;
+    padding: 8px;
+    margin: 5px;
+    border-radius: 6px;
+    cursor: pointer;
+}
+
+/* CARRINHO */
+.carrinho {
+    flex: 1;
+    background: white;
+    padding: 15px;
+    border-radius: 12px;
+    height: fit-content;
+    position: sticky;
+    top: 20px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+/* BOTÕES */
 button {
     background: #EA1D2C;
     color: white;
     border: none;
     padding: 10px;
-    margin-top: 8px;
+    margin-top: 10px;
     border-radius: 6px;
     cursor: pointer;
     width: 100%;
 }
 
-button:hover {
-    background: #c21825;
-}
-
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 5px;
-}
-
-.carrinho-box {
-    margin-top: 20px;
+.qtd {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 8px;
 }
