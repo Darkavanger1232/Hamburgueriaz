@@ -2,31 +2,39 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HamburgueriaZ</title>
 <link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<div id="login">
+<!-- HEADER -->
+<header>
     <img src="logo.png" class="logo">
-    <input type="text" id="email" placeholder="Email">
-    <input type="password" id="senha" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
+    <h1>HamburgueriaZ</h1>
+</header>
+
+<!-- CATEGORIAS -->
+<div class="categorias">
+    <button onclick="filtrar('todos')">Todos</button>
+    <button onclick="filtrar('tradicional')">Tradicionais</button>
+    <button onclick="filtrar('premium')">Premium</button>
+    <button onclick="filtrar('vegano')">Vegano</button>
 </div>
 
-<div id="app">
+<!-- CONTEÚDO -->
+<div class="container">
 
-    <img src="logo.png" class="logo">
-    <h2>🍔 Cardápio</h2>
-
+    <!-- CARDÁPIO -->
     <div id="cardapio"></div>
 
-    <h3>🛒 Carrinho</h3>
-    <ul id="carrinho"></ul>
-
-    <h2>Total: R$ <span id="totalFinal">0</span></h2>
-
-    <button onclick="enviarPedido()">Finalizar Pedido</button>
+    <!-- CARRINHO -->
+    <div class="carrinho-box">
+        <h2>🛒 Carrinho</h2>
+        <ul id="carrinho"></ul>
+        <h3>Total: R$ <span id="total">0</span></h3>
+        <button onclick="finalizar()">Finalizar Pedido</button>
+    </div>
 
 </div>
 
