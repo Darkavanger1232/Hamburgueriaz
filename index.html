@@ -1,50 +1,32 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-    <meta charset="UTF-8">
-    <title>HamburgueriaZ</title>
-    <link rel="stylesheet" href="style.css">
+<meta charset="UTF-8">
+<title>HamburgueriaZ</title>
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
 
-<!-- LOGIN -->
 <div id="login">
     <img src="logo.png" class="logo">
-
     <input type="text" id="email" placeholder="Email">
     <input type="password" id="senha" placeholder="Senha">
-
     <button onclick="login()">Entrar</button>
 </div>
 
-<!-- APP -->
 <div id="app">
 
     <img src="logo.png" class="logo">
+    <h2>🍔 Cardápio</h2>
 
-    <h2>Monte seu pedido</h2>
+    <div id="cardapio"></div>
 
-    <input type="text" id="nome" placeholder="Seu nome">
-
-    <div class="extras">
-        <label><input type="checkbox" id="bacon"> Bacon (+2)</label>
-        <label><input type="checkbox" id="queijo"> Queijo (+2)</label>
-        <label><input type="checkbox" id="onion"> Onion Rings (+3)</label>
-    </div>
-
-    <div class="qtd">
-        <button onclick="subtrair()">-</button>
-        <span id="quantidade">1</span>
-        <button onclick="somar()">+</button>
-    </div>
-
-    <p class="preco">Total: R$ <span id="preco">20</span></p>
-
-    <button onclick="adicionarCarrinho()">Adicionar ao Carrinho</button>
-    <button onclick="enviarPedido()">Enviar Pedido</button>
-
-    <h3>Carrinho</h3>
+    <h3>🛒 Carrinho</h3>
     <ul id="carrinho"></ul>
+
+    <h2>Total: R$ <span id="totalFinal">0</span></h2>
+
+    <button onclick="enviarPedido()">Finalizar Pedido</button>
 
 </div>
 

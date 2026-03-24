@@ -1,111 +1,115 @@
-let quantidade = 1;
 let carrinho = [];
 
-function login() {
-    let email = document.getElementById("email").value.trim();
-    let senha = document.getElementById("senha").value.trim();
+// 🍔 CARDÁPIO DINÂMICO
+const hamburgueres = [
+    { nome: "Clássico", preco: 20 },
+    { nome: "Cheddar Bacon", preco: 25 },
+    { nome: "Duplo Smash", preco: 30 },
+    { nome: "Vegano", preco: 22 }
+];
 
-    if (email === "" || senha === "") {
-        alert("Preencha todos os campos!");
-        return;
-    }
+// ➕ ADICIONAIS
+const adicionais = [
+    { nome: "Bacon", preco: 2 },
+    { nome: "Queijo", preco: 2 },
+    { nome: "Onion Rings", preco: 3 },
+    { nome: "Molho Especial", preco: 1 }
+];
 
-    // Login simples
-    if (email === "admin" && senha === "123") {
-        document.getElementById("login").style.display = "none";
-        document.getElementById("app").style.display = "block";
+// 🔐 LOGIN
+function login(){
+    let e = email.value;
+    let s = senha.value;
+
+    if(e === "admin" && s === "123"){
+        login.style.display = "none";
+        app.style.display = "block";
+        carregarCardapio();
     } else {
-        alert("Login inválido!");
+        alert("Login inválido");
     }
 }
 
-function somar() {
-    quantidade++;
-    atualizar();
-}
+// 🍔 CRIA CARDÁPIO
+function carregarCardapio(){
+    let div = document.getElementById("cardapio");
+    div.innerHTML = "";
 
-function subtrair() {
-    if (quantidade > 1) {
-        quantidade--;
-        atualizar();
-    }
-}
+    hamburgueres.forEach((h, index) => {
 
-function atualizar() {
-    document.getElementById("quantidade").innerText = quantidade;
-    atualizarPreco();
-}
+        let extrasHTML = adicionais.map(a =>
+            `<label><input type="checkbox" value="${a.preco}"> ${a.nome} (+${a.preco})</label><br>`
+        ).join("");
 
-function atualizarPreco() {
-    let precoBase = 20;
+        div.innerHTML += `
+        <div class="card">
+            <h3>${h.nome}</h3>
+            <p>R$ ${h.preco}</p>
 
-    if (document.getElementById("bacon").checked) precoBase += 2;
-    if (document.getElementById("queijo").checked) precoBase += 2;
-    if (document.getElementById("onion").checked) precoBase += 3;
+            <div>${extrasHTML}</div>
 
-    let total = precoBase * quantidade;
-    document.getElementById("preco").innerText = total.toFixed(2);
-}
-
-// Atualiza preço ao marcar opções
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelectorAll("input[type=checkbox]").forEach(cb => {
-        cb.addEventListener("change", atualizarPreco);
+            <button onclick="addCarrinho(${index}, this)">Adicionar</button>
+        </div>
+        `;
     });
-});
+}
 
-function adicionarCarrinho() {
-    let nome = document.getElementById("nome").value.trim();
+// 🛒 ADICIONAR AO CARRINHO
+function addCarrinho(index, btn){
 
-    if (!nome) {
-        alert("Digite seu nome!");
-        return;
-    }
+    let card = btn.parentElement;
+    let checks = card.querySelectorAll("input[type=checkbox]");
 
-    let adicionais = [];
+    let total = hamburgueres[index].preco;
+    let extras = [];
 
-    if (bacon.checked) adicionais.push("Bacon");
-    if (queijo.checked) adicionais.push("Queijo");
-    if (onion.checked) adicionais.push("Onion Rings");
-
-    let total = document.getElementById("preco").innerText;
+    checks.forEach(c => {
+        if(c.checked){
+            total += parseInt(c.value);
+            extras.push(c.parentElement.innerText);
+        }
+    });
 
     carrinho.push({
-        nome,
-        adicionais,
-        quantidade,
-        total
+        nome: hamburgueres[index].nome,
+        extras: extras,
+        preco: total
     });
 
     atualizarCarrinho();
 }
 
-function atualizarCarrinho() {
+// 🔄 ATUALIZA CARRINHO
+function atualizarCarrinho(){
     let lista = document.getElementById("carrinho");
+    let totalFinal = 0;
+
     lista.innerHTML = "";
 
     carrinho.forEach(p => {
+
+        totalFinal += p.preco;
+
         let li = document.createElement("li");
-
-        li.innerText = `${p.nome} | ${p.quantidade}x | ${p.adicionais.join(", ") || "Sem adicionais"} | R$ ${p.total}`;
-
+        li.innerText = `${p.nome} - ${p.extras.join(", ") || "Sem extras"} - R$ ${p.preco}`;
         lista.appendChild(li);
     });
+
+    document.getElementById("totalFinal").innerText = totalFinal;
 }
 
-function enviarPedido() {
-    if (carrinho.length === 0) {
+// 📧 FINALIZAR
+function enviarPedido(){
+    if(carrinho.length === 0){
         alert("Carrinho vazio!");
         return;
     }
 
-    let mensagem = "Pedido HamburgueriaZ:\n\n";
+    let msg = "Pedido HamburgueriaZ:\n\n";
 
     carrinho.forEach(p => {
-        mensagem += `${p.nome} - ${p.quantidade}x - ${p.adicionais.join(", ") || "Sem adicionais"} - R$ ${p.total}\n`;
+        msg += `${p.nome} - ${p.extras.join(", ") || "Sem extras"} - R$ ${p.preco}\n`;
     });
 
-    let link = `mailto:?subject=Pedido HamburgueriaZ&body=${encodeURIComponent(mensagem)}`;
-
-    window.location.href = link;
+    window.location.href = `mailto:?subject=Pedido&body=${encodeURIComponent(msg)}`;
 }

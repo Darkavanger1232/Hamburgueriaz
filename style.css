@@ -1,69 +1,44 @@
 body {
-    font-family: Arial, sans-serif;
+    font-family: Arial;
     background: #f2f2f2;
     text-align: center;
-    margin: 0;
 }
 
 .logo {
-    width: 200px;
-    margin: 20px auto;
-    display: block;
+    width: 180px;
+    margin: 20px;
 }
 
 #login, #app {
-    max-width: 400px;
-    margin: 40px auto;
+    max-width: 500px;
+    margin: auto;
     background: white;
-    padding: 25px;
+    padding: 20px;
     border-radius: 10px;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 #app {
     display: none;
 }
 
-input {
-    width: 90%;
-    padding: 10px;
-    margin: 10px 0;
-    border-radius: 5px;
-    border: 1px solid #ccc;
+.card {
+    background: #fff;
+    margin: 10px;
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0 3px 8px rgba(0,0,0,0.1);
 }
 
 button {
     background: #EA1D2C;
     color: white;
     border: none;
-    padding: 12px;
-    margin: 8px;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 90%;
-}
-
-button:hover {
-    background: #c91522;
-}
-
-.qtd button {
-    width: 50px;
-}
-
-.preco {
-    font-size: 18px;
-    font-weight: bold;
-}
-
-ul {
-    list-style: none;
-    padding: 0;
-}
-
-li {
-    background: #fafafa;
-    margin: 5px;
     padding: 10px;
+    margin: 5px;
     border-radius: 5px;
+}
+
+select {
+    padding: 8px;
+    margin-top: 10px;
 }
