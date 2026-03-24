@@ -22,16 +22,28 @@
 <div id="app">
 
     <img src="logo.png" class="logo">
-    <h2>🍔 Cardápio</h2>
+    <h2>HamburgueriaZ</h2>
 
-    <div id="cardapio"></div>
+    <!-- FILTROS -->
+    <div class="filtros">
+        <button onclick="filtrar('todos')">Todos</button>
+        <button onclick="filtrar('tradicional')">Tradicionais</button>
+        <button onclick="filtrar('premium')">Premium</button>
+        <button onclick="filtrar('vegano')">Vegano</button>
+    </div>
 
-    <h3>🛒 Carrinho</h3>
-    <ul id="carrinho"></ul>
+    <!-- CARDÁPIO -->
+    <div id="cardapio" class="grid"></div>
 
-    <h2>Total: R$ <span id="totalFinal">0</span></h2>
+    <!-- CARRINHO -->
+    <div class="carrinho-box">
+        <h3>🛒 Carrinho</h3>
+        <ul id="carrinho"></ul>
 
-    <button onclick="enviarPedido()">Finalizar Pedido</button>
+        <h2>Total: R$ <span id="totalFinal">0</span></h2>
+
+        <button onclick="enviarPedido()">Finalizar Pedido</button>
+    </div>
 
 </div>
 

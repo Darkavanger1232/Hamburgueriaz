@@ -5,12 +5,12 @@ body {
 }
 
 .logo {
-    width: 140px;
-    margin: 15px;
+    width: 120px;
+    margin: 10px;
 }
 
 #login, #app {
-    max-width: 600px;
+    max-width: 900px;
     margin: auto;
     background: white;
     padding: 20px;
@@ -22,20 +22,34 @@ body {
     display: none;
 }
 
+.filtros {
+    margin-bottom: 15px;
+}
+
+.filtros button {
+    width: auto;
+    padding: 8px 12px;
+    margin: 3px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+}
+
 .card {
     background: #fff;
-    margin: 10px 0;
-    padding: 15px;
+    padding: 12px;
     border-radius: 10px;
     box-shadow: 0 3px 8px rgba(0,0,0,0.1);
-    text-align: left;
 }
 
 .card img {
     width: 100%;
-    height: 180px;
+    height: 150px;
     object-fit: cover;
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
 button {
@@ -43,7 +57,7 @@ button {
     color: white;
     border: none;
     padding: 10px;
-    margin-top: 10px;
+    margin-top: 8px;
     border-radius: 6px;
     cursor: pointer;
     width: 100%;
@@ -59,21 +73,6 @@ input {
     margin: 5px;
 }
 
-select {
-    width: 100%;
-    padding: 8px;
-    margin-top: 10px;
-}
-
-.qtd {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    margin-top: 10px;
-}
-
-.qtd button {
-    width: 30px;
-    height: 30px;
+.carrinho-box {
+    margin-top: 20px;
 }
