@@ -1,159 +1,105 @@
-let carrinho = JSON.parse(localStorage.getItem("carrinho")) || [];
+let carrinho = [];
 
-// 🍔 HAMBURGUERES
+// 🍔 CARDÁPIO DINÂMICO
 const hamburgueres = [
-    { nome: "Clássico", preco: 20, categoria: "tradicional", img: "https://i.imgur.com/8bKQ8xE.png" },
-    { nome: "Cheddar Bacon", preco: 25, categoria: "premium", img: "https://i.imgur.com/0umadnY.png" },
-    { nome: "Duplo Smash", preco: 30, categoria: "premium", img: "https://i.imgur.com/2DhmtJ4.png" },
-    { nome: "Vegano", preco: 22, categoria: "vegano", img: "https://i.imgur.com/N5uCbDu.png" }
+    { nome: "Clássico", preco: 20 },
+    { nome: "Cheddar Bacon", preco: 25 },
+    { nome: "Duplo Smash", preco: 30 },
+    { nome: "Vegano", preco: 22 }
 ];
 
 // ➕ ADICIONAIS
 const adicionais = [
-    { nome: "Bife Extra", preco: 5 },
-    { nome: "Alface", preco: 1 },
-    { nome: "Tomate", preco: 1 },
-    { nome: "Ovo", preco: 2 },
-    { nome: "Cebola", preco: 1 },
+    { nome: "Bacon", preco: 2 },
     { nome: "Queijo", preco: 2 },
-    { nome: "Ketchup", preco: 1 },
-    { nome: "Mostarda", preco: 1 },
-    { nome: "Maionese", preco: 1 },
-    { nome: "Barbecue", preco: 2 }
+    { nome: "Onion Rings", preco: 3 },
+    { nome: "Molho Especial", preco: 1 }
 ];
 
-// 🥤 BEBIDAS
-const bebidas = [
-    { nome: "Coca-Cola", tamanhos: { "1L": 8, "2L": 12, "3L": 15 } },
-    { nome: "Guaraná", tamanhos: { "1L": 7, "2L": 11, "3L": 14 } },
-    { nome: "Fanta", tamanhos: { "1L": 7, "2L": 11, "3L": 14 } }
-];
+// 🔐 LOGIN
+function login(){
+    let e = email.value;
+    let s = senha.value;
 
-// INIT
-window.onload = () => {
-    renderizar(hamburgueres);
-    atualizarCarrinho();
-};
-
-// FILTRO
-function filtrar(cat){
-    if(cat === "todos") return renderizar(hamburgueres);
-    renderizar(hamburgueres.filter(h => h.categoria === cat));
+    if(e === "admin" && s === "123"){
+        login.style.display = "none";
+        app.style.display = "block";
+        carregarCardapio();
+    } else {
+        alert("Login inválido");
+    }
 }
 
-// RENDER
-function renderizar(lista){
+// 🍔 CRIA CARDÁPIO
+function carregarCardapio(){
     let div = document.getElementById("cardapio");
     div.innerHTML = "";
 
-    lista.forEach((h, index) => {
+    hamburgueres.forEach((h, index) => {
 
         let extrasHTML = adicionais.map(a =>
-            `<label><input type="checkbox" value="${a.preco}"> ${a.nome} (+${a.preco})</label>`
-        ).join("<br>");
-
-        let bebidasHTML = bebidas.map(b =>
-            Object.entries(b.tamanhos)
-                .map(([tam, preco]) =>
-                    `<option value="${preco}">${b.nome} ${tam} (+${preco})</option>`
-                ).join("")
+            `<label><input type="checkbox" value="${a.preco}"> ${a.nome} (+${a.preco})</label><br>`
         ).join("");
 
         div.innerHTML += `
         <div class="card">
-            <img src="${h.img}">
             <h3>${h.nome}</h3>
             <p>R$ ${h.preco}</p>
 
-            <div class="extras">
-                <strong>Extras:</strong><br>
-                ${extrasHTML}
-            </div>
+            <div>${extrasHTML}</div>
 
-            <div class="bebida">
-                <strong>Bebida:</strong>
-                <select>
-                    <option value="0">Nenhuma</option>
-                    ${bebidasHTML}
-                </select>
-            </div>
-
-            <button onclick="add(${index}, this)">Adicionar</button>
+            <button onclick="addCarrinho(${index}, this)">Adicionar</button>
         </div>
         `;
     });
 }
 
-// ADD
-function add(index, btn){
+// 🛒 ADICIONAR AO CARRINHO
+function addCarrinho(index, btn){
+
     let card = btn.parentElement;
     let checks = card.querySelectorAll("input[type=checkbox]");
-    let select = card.querySelector("select");
 
     let total = hamburgueres[index].preco;
-    let extrasSelecionados = [];
+    let extras = [];
 
     checks.forEach(c => {
         if(c.checked){
             total += parseInt(c.value);
-            extrasSelecionados.push(c.parentElement.innerText);
+            extras.push(c.parentElement.innerText);
         }
     });
 
-    let bebida = select.options[select.selectedIndex].text;
-    let precoBebida = parseInt(select.value);
-
-    if(precoBebida > 0) total += precoBebida;
-
     carrinho.push({
         nome: hamburgueres[index].nome,
-        extras: extrasSelecionados,
-        bebida: precoBebida > 0 ? bebida : "Sem bebida",
+        extras: extras,
         preco: total
     });
 
-    salvar();
-}
-
-// SALVAR
-function salvar(){
-    localStorage.setItem("carrinho", JSON.stringify(carrinho));
     atualizarCarrinho();
 }
 
-// ATUALIZAR
+// 🔄 ATUALIZA CARRINHO
 function atualizarCarrinho(){
     let lista = document.getElementById("carrinho");
-    let total = 0;
+    let totalFinal = 0;
 
     lista.innerHTML = "";
 
-    carrinho.forEach((item, i) => {
+    carrinho.forEach(p => {
 
-        total += item.preco;
+        totalFinal += p.preco;
 
-        lista.innerHTML += `
-        <li>
-            <strong>${item.nome}</strong><br>
-            Extras: ${item.extras.join(", ") || "Nenhum"}<br>
-            Bebida: ${item.bebida}<br>
-            R$ ${item.preco}
-            <button onclick="remover(${i})">❌</button>
-        </li>
-        `;
+        let li = document.createElement("li");
+        li.innerText = `${p.nome} - ${p.extras.join(", ") || "Sem extras"} - R$ ${p.preco}`;
+        lista.appendChild(li);
     });
 
-    document.getElementById("total").innerText = total;
+    document.getElementById("totalFinal").innerText = totalFinal;
 }
 
-// REMOVER
-function remover(i){
-    carrinho.splice(i, 1);
-    salvar();
-}
-
-// FINALIZAR
-function finalizar(){
+// 📧 FINALIZAR
+function enviarPedido(){
     if(carrinho.length === 0){
         alert("Carrinho vazio!");
         return;
@@ -162,7 +108,7 @@ function finalizar(){
     let msg = "Pedido HamburgueriaZ:\n\n";
 
     carrinho.forEach(p => {
-        msg += `${p.nome}\nExtras: ${p.extras.join(", ") || "Nenhum"}\nBebida: ${p.bebida}\nPreço: R$ ${p.preco}\n\n`;
+        msg += `${p.nome} - ${p.extras.join(", ") || "Sem extras"} - R$ ${p.preco}\n`;
     });
 
     window.location.href = `mailto:?subject=Pedido&body=${encodeURIComponent(msg)}`;
