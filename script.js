@@ -2,14 +2,20 @@ let quantidade = 1;
 let carrinho = [];
 
 function login() {
-    let email = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
+    let email = document.getElementById("email").value.trim();
+    let senha = document.getElementById("senha").value.trim();
 
+    if (email === "" || senha === "") {
+        alert("Preencha todos os campos!");
+        return;
+    }
+
+    // Login simples
     if (email === "admin" && senha === "123") {
         document.getElementById("login").style.display = "none";
         document.getElementById("app").style.display = "block";
     } else {
-        alert("Login inválido");
+        alert("Login inválido!");
     }
 }
 
@@ -19,8 +25,10 @@ function somar() {
 }
 
 function subtrair() {
-    if (quantidade > 1) quantidade--;
-    atualizar();
+    if (quantidade > 1) {
+        quantidade--;
+        atualizar();
+    }
 }
 
 function atualizar() {
@@ -29,33 +37,44 @@ function atualizar() {
 }
 
 function atualizarPreco() {
-    let preco = 20;
+    let precoBase = 20;
 
-    if (document.getElementById("bacon").checked) preco += 2;
-    if (document.getElementById("queijo").checked) preco += 2;
-    if (document.getElementById("onion").checked) preco += 3;
+    if (document.getElementById("bacon").checked) precoBase += 2;
+    if (document.getElementById("queijo").checked) precoBase += 2;
+    if (document.getElementById("onion").checked) precoBase += 3;
 
-    document.getElementById("preco").innerText = preco * quantidade;
+    let total = precoBase * quantidade;
+    document.getElementById("preco").innerText = total.toFixed(2);
 }
 
-document.querySelectorAll("input[type=checkbox]").forEach(cb => {
-    cb.addEventListener("change", atualizarPreco);
+// Atualiza preço ao marcar opções
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelectorAll("input[type=checkbox]").forEach(cb => {
+        cb.addEventListener("change", atualizarPreco);
+    });
 });
 
 function adicionarCarrinho() {
-    let nome = document.getElementById("nome").value;
+    let nome = document.getElementById("nome").value.trim();
 
     if (!nome) {
         alert("Digite seu nome!");
         return;
     }
 
+    let adicionais = [];
+
+    if (bacon.checked) adicionais.push("Bacon");
+    if (queijo.checked) adicionais.push("Queijo");
+    if (onion.checked) adicionais.push("Onion Rings");
+
     let total = document.getElementById("preco").innerText;
 
     carrinho.push({
-        nome: nome,
-        qtd: quantidade,
-        total: total
+        nome,
+        adicionais,
+        quantidade,
+        total
     });
 
     atualizarCarrinho();
@@ -67,7 +86,9 @@ function atualizarCarrinho() {
 
     carrinho.forEach(p => {
         let li = document.createElement("li");
-        li.innerText = `${p.nome} - ${p.qtd}x - R$ ${p.total}`;
+
+        li.innerText = `${p.nome} | ${p.quantidade}x | ${p.adicionais.join(", ") || "Sem adicionais"} | R$ ${p.total}`;
+
         lista.appendChild(li);
     });
 }
@@ -78,10 +99,10 @@ function enviarPedido() {
         return;
     }
 
-    let mensagem = "Pedidos:\n";
+    let mensagem = "Pedido HamburgueriaZ:\n\n";
 
     carrinho.forEach(p => {
-        mensagem += `${p.nome} - ${p.qtd}x - R$ ${p.total}\n`;
+        mensagem += `${p.nome} - ${p.quantidade}x - ${p.adicionais.join(", ") || "Sem adicionais"} - R$ ${p.total}\n`;
     });
 
     let link = `mailto:?subject=Pedido HamburgueriaZ&body=${encodeURIComponent(mensagem)}`;
