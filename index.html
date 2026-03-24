@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>HamburgueriaZ</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<div id="login">
+    <h1>🍔 HamburgueriaZ</h1>
+
+    <input type="text" id="email" placeholder="Email">
+    <input type="password" id="senha" placeholder="Senha">
+
+    <button onclick="login()">Entrar</button>
+</div>
+
+<div id="app" style="display:none;">
+
+    <h2>Faça seu pedido</h2>
+
+    <input type="text" id="nome" placeholder="Seu nome">
+
+    <label><input type="checkbox" id="bacon"> Bacon</label>
+    <label><input type="checkbox" id="queijo"> Queijo</label>
+    <label><input type="checkbox" id="onion"> Onion Rings</label>
+
+    <div class="qtd">
+        <button onclick="subtrair()">-</button>
+        <span id="quantidade">1</span>
+        <button onclick="somar()">+</button>
+    </div>
+
+    <p>Preço: R$ <span id="preco">20</span></p>
+
+    <button onclick="adicionarCarrinho()">Adicionar ao Carrinho</button>
+    <button onclick="enviarPedido()">Enviar Pedido</button>
+
+    <h3>Carrinho</h3>
+    <ul id="carrinho"></ul>
+
+</div>
+
+<script src="script.js"></script>
+</body>
+</html>
