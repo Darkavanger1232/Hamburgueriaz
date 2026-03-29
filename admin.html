@@ -1,34 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Admin</title>
-</head>
 <body>
 
 <h2>Painel Admin</h2>
 
-<input id="email" placeholder="Email">
-<input id="senha" type="password">
-<button onclick="loginAdmin()">Entrar</button>
-
-<div id="painel" style="display:none">
-
-<input id="nome" placeholder="Nome">
+<input id="nome" placeholder="Nome do produto">
 <input id="preco" placeholder="Preço">
-<input id="img" placeholder="Imagem">
+<input id="img" placeholder="URL da imagem">
 
 <button onclick="addProduto()">Adicionar</button>
 
-<ul id="lista"></ul>
-
-</div>
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
-
-<script src="firebase.js"></script>
-<script src="admin.js"></script>
-
 </body>
-</html>
