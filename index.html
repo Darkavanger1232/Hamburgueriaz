@@ -2,57 +2,18 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>HamburgueriaZ</title>
-
+<title>Login - HamburgueriaZ</title>
 <link rel="stylesheet" href="style.css">
-
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 </head>
-
 <body>
 
-<!-- MENU LATERAL -->
-<div id="menuLateral" class="menu-lateral">
-    <h3>HamburgueriaZ</h3>
+<div class="login-box">
+    <img src="logo.png" class="logo-login">
 
-    <a href="#">🏠 Início</a>
-    <a href="#">🍔 Cardápio</a>
-    <a href="#">🛒 Meu Pedido</a>
-    <a href="#">⚙️ Configurações</a>
-    <a href="admin.html">🔒 Área Admin</a>
+    <input id="email" placeholder="Email">
+    <input id="senha" type="password" placeholder="Senha">
 
-    <button onclick="logout()">Sair</button>
-</div>
-
-<!-- APP -->
-<div class="app">
-
-<header>
-    <button onclick="toggleMenu()">☰</button>
-    <h2>HamburgueriaZ</h2>
-    <span>🛒</span>
-</header>
-
-<section class="topo">
-    <h3>Olá, Odilon!</h3>
-    <p>O que vai querer hoje? 🍔</p>
-
-    <input placeholder="Buscar produtos...">
-</section>
-
-<!-- FILTROS -->
-<div class="filtros">
-    <button class="ativo">Todos</button>
-    <button>🍔 Hambúrgueres</button>
-    <button>🥤 Bebidas</button>
-</div>
-
-<!-- LISTA -->
-<div id="listaProdutos" class="lista"></div>
-
+    <button onclick="login()">Entrar</button>
 </div>
 
 <script src="firebase.js"></script>
