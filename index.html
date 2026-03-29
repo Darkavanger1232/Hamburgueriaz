@@ -4,9 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HamburgueriaZ</title>
+
 <link rel="stylesheet" href="style.css">
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
 <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
@@ -14,44 +14,44 @@
 
 <body>
 
-<!-- LOGIN -->
-<div id="login">
-    <img src="logo.png" class="logo">
-    <input id="email" placeholder="Email">
-    <input id="senha" type="password" placeholder="Senha">
-    <button onclick="login()">Entrar</button>
+<!-- MENU LATERAL -->
+<div id="menuLateral" class="menu-lateral">
+    <h3>HamburgueriaZ</h3>
+
+    <a href="#">🏠 Início</a>
+    <a href="#">🍔 Cardápio</a>
+    <a href="#">🛒 Meu Pedido</a>
+    <a href="#">⚙️ Configurações</a>
+    <a href="admin.html">🔒 Área Admin</a>
+
+    <button onclick="logout()">Sair</button>
 </div>
 
 <!-- APP -->
-<div id="app">
+<div class="app">
 
 <header>
-    <h1>🍔 HamburgueriaZ</h1>
+    <button onclick="toggleMenu()">☰</button>
+    <h2>HamburgueriaZ</h2>
+    <span>🛒</span>
 </header>
 
-<div class="container">
+<section class="topo">
+    <h3>Olá, Odilon!</h3>
+    <p>O que vai querer hoje? 🍔</p>
 
-    <!-- MENU -->
-    <div class="menu">
-        <h2>Cardápio</h2>
-        <div id="cardapio" class="grid"></div>
-    </div>
+    <input placeholder="Buscar produtos...">
+</section>
 
-    <!-- CARRINHO -->
-    <div class="carrinho">
-        <h2>🛒 Pedido</h2>
-
-        <ul id="listaCarrinho"></ul>
-
-        <input id="endereco" placeholder="Endereço">
-        <input id="telefone" placeholder="Telefone">
-
-        <h3>Total: R$ <span id="total">0</span></h3>
-
-        <button onclick="finalizar()">Finalizar</button>
-    </div>
-
+<!-- FILTROS -->
+<div class="filtros">
+    <button class="ativo">Todos</button>
+    <button>🍔 Hambúrgueres</button>
+    <button>🥤 Bebidas</button>
 </div>
+
+<!-- LISTA -->
+<div id="listaProdutos" class="lista"></div>
 
 </div>
 
