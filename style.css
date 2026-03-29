@@ -1,38 +1,51 @@
-body {
-    font-family: Arial;
-    margin: 0;
-    background: #f5f5f5;
-}
-
-header {
-    background: #EA1D2C;
-    color: white;
-    padding: 15px;
+/* CENTRALIZA TUDO */
+.login-container {
     display: flex;
-    justify-content: space-between;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
 }
 
-.container {
-    padding: 20px;
+/* CAIXA */
+.login-box {
+    background: white;
+    padding: 30px;
+    border-radius: 15px;
+    width: 320px;
+    text-align: center;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
 }
 
-button {
+/* LOGO CONTROLADA */
+.logo-login {
+    width: 160px; /* 🔥 antes tava gigante */
+    margin-bottom: 15px;
+}
+
+/* INPUTS */
+.login-box input {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+/* BOTÃO */
+.login-box button {
+    width: 100%;
+    padding: 12px;
     background: #EA1D2C;
     color: white;
     border: none;
-    padding: 10px;
-    width: 100%;
     border-radius: 8px;
     margin-top: 10px;
+    cursor: pointer;
 }
 
-.login-box {
-    max-width: 300px;
-    margin: auto;
-    margin-top: 100px;
-    text-align: center;
-}
-
-.logo-login {
-    width: 180px;
+/* FUNDO */
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #EA1D2C, #ff4d4d);
 }
