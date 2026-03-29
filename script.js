@@ -1,145 +1,119 @@
 let carrinho = [];
-let categoriaAtual = "todos";
 
-// CARDÁPIO
-const hamburgueres = [
-    {
-        nome: "Clássico",
-        preco: 20,
-        categoria: "tradicional",
-        img: "https://images.unsplash.com/photo-1550547660-d9450f859349"
-    },
-    {
-        nome: "Cheddar Bacon",
-        preco: 25,
-        categoria: "premium",
-        img: "https://images.unsplash.com/photo-1568901346375-23c9450c58cd"
-    },
-    {
-        nome: "Duplo Smash",
-        preco: 30,
-        categoria: "premium",
-        img: "https://images.unsplash.com/photo-1606755962773-d324e0a13086"
-    }
-];
-
-// EXTRAS
+// 🍔 EXTRAS
 const extras = [
-    { nome: "Bacon", preco: 2 },
-    { nome: "Queijo", preco: 2 },
-    { nome: "Ovo", preco: 2 }
+    {nome:"Bacon", preco:3},
+    {nome:"Queijo", preco:2},
+    {nome:"Ovo", preco:2},
+    {nome:"Alface", preco:1},
+    {nome:"Tomate", preco:1}
 ];
 
-// BEBIDAS
+// 🥤 BEBIDAS ATÉ 3L
 const bebidas = [
-    { nome: "Coca 1L", preco: 8 },
-    { nome: "Coca 2L", preco: 12 }
+    {nome:"Coca 1L", preco:8},
+    {nome:"Coca 2L", preco:12},
+    {nome:"Coca 3L", preco:15},
+    {nome:"Guaraná 1L", preco:7},
+    {nome:"Guaraná 2L", preco:11},
+    {nome:"Guaraná 3L", preco:14}
 ];
 
-// RENDER
-function carregarCardapio(){
+// LOGIN
+function login(){
+    auth.signInWithEmailAndPassword(
+        document.getElementById("email").value,
+        document.getElementById("senha").value
+    )
+    .then(()=>{
+        document.getElementById("login").style.display="none";
+        document.getElementById("app").style.display="block";
+        carregarProdutos();
+    })
+    .catch(()=> alert("Erro no login"));
+}
+
+function logout(){
+    auth.signOut();
+    location.reload();
+}
+
+// 🍔 CARREGAR PRODUTOS FIREBASE
+function carregarProdutos(){
     let div = document.getElementById("cardapio");
-    div.innerHTML = "";
+    div.innerHTML="";
 
-    hamburgueres.forEach((h, i) => {
+    db.collection("produtos").get().then(snapshot=>{
 
-        if(categoriaAtual !== "todos" && h.categoria !== categoriaAtual){
-            return;
-        }
+        snapshot.forEach(doc=>{
+            let p = doc.data();
 
-        let extrasHTML = extras.map(e =>
-            `<label><input type="checkbox" value="${e.preco}"> ${e.nome}</label><br>`
-        ).join("");
+            let extrasHTML = extras.map(e =>
+                `<label><input type="checkbox" value="${e.preco}"> ${e.nome}</label><br>`
+            ).join("");
 
-        let bebidasHTML = bebidas.map(b =>
-            `<option value="${b.preco}">${b.nome}</option>`
-        ).join("");
+            let bebidasHTML = bebidas.map(b =>
+                `<option value="${b.preco}">${b.nome}</option>`
+            ).join("");
 
-        div.innerHTML += `
-        <div class="card">
+            div.innerHTML += `
+            <div class="card">
+                <img src="${p.img}" onerror="this.src='https://via.placeholder.com/300'">
 
-            <img src="${h.img}" 
-            onerror="this.src='https://via.placeholder.com/300'">
+                <h3>${p.nome}</h3>
+                <p>R$ ${p.preco}</p>
 
-            <h3>${h.nome}</h3>
-            <p>R$ ${h.preco}</p>
+                <div>${extrasHTML}</div>
 
-            ${extrasHTML}
+                <select>
+                    <option value="0">Sem bebida</option>
+                    ${bebidasHTML}
+                </select>
 
-            <select>
-                <option value="0">Sem bebida</option>
-                ${bebidasHTML}
-            </select>
-
-            <div class="qtd">
-                <button onclick="diminuir(this)">-</button>
-                <span>1</span>
-                <button onclick="aumentar(this)">+</button>
+                <button onclick="addCarrinho('${p.nome}', ${p.preco}, this)">
+                    Adicionar
+                </button>
             </div>
+            `;
+        });
 
-            <button onclick="addCarrinho(${i}, this)">Adicionar</button>
-
-        </div>
-        `;
     });
 }
 
-// FILTRO
-function filtrar(cat){
-    categoriaAtual = cat;
-    carregarCardapio();
-}
+// 🛒 ADD
+function addCarrinho(nome, preco, btn){
 
-// QTD
-function aumentar(btn){
-    let s = btn.parentElement.querySelector("span");
-    s.innerText++;
-}
-
-function diminuir(btn){
-    let s = btn.parentElement.querySelector("span");
-    if(s.innerText > 1) s.innerText--;
-}
-
-// ADD
-function addCarrinho(i, btn){
     let card = btn.parentElement;
 
-    let checks = card.querySelectorAll("input");
+    let checks = card.querySelectorAll("input[type=checkbox]");
     let select = card.querySelector("select");
-    let qtd = parseInt(card.querySelector("span").innerText);
 
-    let total = hamburgueres[i].preco;
+    let total = preco;
 
-    checks.forEach(c => {
+    checks.forEach(c=>{
         if(c.checked) total += parseInt(c.value);
     });
 
     total += parseInt(select.value);
-    total *= qtd;
 
-    carrinho.push({
-        nome: hamburgueres[i].nome,
-        preco: total,
-        qtd
-    });
+    carrinho.push({nome, preco: total});
 
-    atualizar();
+    atualizarCarrinho();
 }
 
-// ATUALIZAR
-function atualizar(){
-    let lista = document.getElementById("carrinhoLista");
+// 🔄 ATUALIZAR
+function atualizarCarrinho(){
+    let lista = document.getElementById("listaCarrinho");
     let total = 0;
 
-    lista.innerHTML = "";
+    lista.innerHTML="";
 
     carrinho.forEach((p,i)=>{
         total += p.preco;
 
         lista.innerHTML += `
         <li>
-            ${p.nome} x${p.qtd} - R$ ${p.preco}
+            ${p.nome} - R$ ${p.preco}
             <button onclick="remover(${i})">❌</button>
         </li>`;
     });
@@ -147,16 +121,39 @@ function atualizar(){
     document.getElementById("total").innerText = total;
 }
 
-// REMOVER
+// ❌ REMOVER
 function remover(i){
     carrinho.splice(i,1);
-    atualizar();
+    atualizarCarrinho();
 }
 
-// FINALIZAR
+// 📦 FINALIZAR
 function finalizar(){
-    alert("Pedido enviado!");
-}
 
-// INIT
-window.onload = carregarCardapio;
+    let endereco = document.getElementById("endereco").value;
+    let telefone = document.getElementById("telefone").value;
+
+    if(!endereco || !telefone){
+        alert("Preencha endereço e telefone");
+        return;
+    }
+
+    let total = carrinho.reduce((t,i)=>t+i.preco,0);
+    let tempo = Math.floor(Math.random()*20)+20;
+
+    db.collection("pedidos").add({
+        cliente: auth.currentUser.email,
+        endereco,
+        telefone,
+        itens: carrinho,
+        total,
+        tempo,
+        status: "pendente",
+        data: new Date()
+    })
+    .then(()=>{
+        alert("Pedido confirmado! Tempo: "+tempo+" minutos");
+        carrinho = [];
+        atualizarCarrinho();
+    });
+}
