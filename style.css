@@ -1,112 +1,38 @@
 body {
-    margin: 0;
     font-family: Arial;
+    margin: 0;
     background: #f5f5f5;
 }
 
-/* HEADER */
 header {
     background: #EA1D2C;
     color: white;
-    display: flex;
-    justify-content: space-between;
     padding: 15px;
-    font-size: 18px;
-}
-
-/* TOPO */
-.topo {
-    background: #EA1D2C;
-    color: white;
-    padding: 15px;
-}
-
-.topo input {
-    width: 100%;
-    padding: 10px;
-    border-radius: 8px;
-    border: none;
-}
-
-/* FILTROS */
-.filtros {
     display: flex;
-    gap: 10px;
-    padding: 10px;
-}
-
-.filtros button {
-    border: none;
-    padding: 8px 12px;
-    border-radius: 20px;
-    background: #eee;
-}
-
-.ativo {
-    background: #EA1D2C;
-    color: white;
-}
-
-/* LISTA */
-.lista {
-    padding: 10px;
-}
-
-/* CARD */
-.card {
-    background: white;
-    border-radius: 15px;
-    padding: 10px;
-    margin-bottom: 10px;
-    display: flex;
-    align-items: center;
     justify-content: space-between;
 }
 
-.card img {
-    width: 60px;
-    height: 60px;
-    border-radius: 10px;
-}
-
-.info {
-    flex: 1;
-    margin-left: 10px;
-}
-
-.preco {
-    color: #EA1D2C;
-    font-weight: bold;
-}
-
-/* BOTÃO + */
-.add {
-    background: #EA1D2C;
-    color: white;
-    border: none;
-    width: 35px;
-    height: 35px;
-    border-radius: 50%;
-    font-size: 20px;
-}
-
-/* MENU LATERAL */
-.menu-lateral {
-    position: fixed;
-    left: -250px;
-    top: 0;
-    width: 250px;
-    height: 100%;
-    background: white;
+.container {
     padding: 20px;
-    transition: 0.3s;
 }
 
-.menu-lateral a {
-    display: block;
-    margin: 10px 0;
+button {
+    background: #EA1D2C;
+    color: white;
+    border: none;
+    padding: 10px;
+    width: 100%;
+    border-radius: 8px;
+    margin-top: 10px;
 }
 
-.menu-lateral.ativo {
-    left: 0;
+.login-box {
+    max-width: 300px;
+    margin: auto;
+    margin-top: 100px;
+    text-align: center;
+}
+
+.logo-login {
+    width: 180px;
 }
