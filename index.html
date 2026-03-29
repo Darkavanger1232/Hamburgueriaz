@@ -2,21 +2,33 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Login - HamburgueriaZ</title>
+
 <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
 
-<div class="login-box">
-    <img src="logo.png" class="logo-login">
+<div class="login-container">
 
-    <input id="email" placeholder="Email">
-    <input id="senha" type="password" placeholder="Senha">
+    <div class="login-box">
 
-    <button onclick="login()">Entrar</button>
+        <img src="logo.png" class="logo-login">
+
+        <h2>HamburgueriaZ</h2>
+
+        <input id="email" placeholder="Email">
+        <input id="senha" type="password" placeholder="Senha">
+
+        <button onclick="login()">Entrar</button>
+
+    </div>
+
 </div>
 
 <script src="firebase.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
