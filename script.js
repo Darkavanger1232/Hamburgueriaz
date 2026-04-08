@@ -1,49 +1,43 @@
+// ESPERA CARREGAR
+window.onload = () => {
+
+    // REMOVE LOADING
+    setTimeout(() => {
+        document.getElementById("loading").style.display = "none";
+    }, 800);
+
+    // BOTÃO LOGIN
+    document.getElementById("btnLogin").addEventListener("click", login);
+};
+
 // LOGIN
 function login(){
 
+    const btn = document.getElementById("btnLogin");
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
 
-    auth.signInWithEmailAndPassword(email, senha)
-    .then(()=>{
-        window.location.href = "inicio.html";
-    })
-    .catch(()=>{
-        alert("Erro no login");
-    });
-}
-
-// MENU
-function toggleMenu(){
-    document.getElementById("menu").classList.toggle("ativo");
-}
-
-// FINALIZAR
-function finalizarPedido(){
-
-    let endereco = document.getElementById("endereco").value;
-    let telefone = document.getElementById("telefone").value;
-
-    if(!endereco || !telefone){
-        alert("Preencha tudo");
+    if(!email || !senha){
+        alert("Preencha email e senha");
         return;
     }
 
-    alert("Pedido confirmado! 🍔 Tempo: 30 min");
-}
+    btn.innerText = "Entrando...";
+    btn.disabled = true;
 
-// ADMIN
-function addProduto(){
+    auth.signInWithEmailAndPassword(email, senha)
+    .then(() => {
 
-    let nome = document.getElementById("nome").value;
-    let preco = document.getElementById("preco").value;
-    let img = document.getElementById("img").value;
+        document.body.style.opacity = "0";
 
-    db.collection("produtos").add({
-        nome,
-        preco,
-        img
+        setTimeout(() => {
+            window.location.href = "inicio.html";
+        }, 500);
+
+    })
+    .catch(() => {
+        alert("Login inválido");
+        btn.innerText = "Entrar";
+        btn.disabled = false;
     });
-
-    alert("Produto adicionado!");
 }
