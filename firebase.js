@@ -1,3 +1,5 @@
+npm install firebase
+
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { getAnalytics } from "firebase/analytics";
@@ -12,8 +14,8 @@ const firebaseConfig = {
   projectId: "hamburgueriaz-ede35",
   storageBucket: "hamburgueriaz-ede35.firebasestorage.app",
   messagingSenderId: "463524468857",
-  appId: "1:463524468857:web:b1df4f201c812c81cadca8",
-  measurementId: "G-J97QLDK8MV"
+  appId: "1:463524468857:web:a430a08a93c02dc0cadca8",
+  measurementId: "G-H1XJJ2WPBJ"
 };
 
 // Initialize Firebase
