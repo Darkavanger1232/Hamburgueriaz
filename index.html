@@ -3,38 +3,37 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - HamburgueriaZ</title>
+<title>HamburgueriaZ</title>
 
-<link rel="stylesheet" href="style.css">
+<link rel="stylesheet" href="css/style.css">
 </head>
 
-<body>
+<body class="login-body">
 
-<!-- LOADING -->
-<div id="loading">
-    <div class="spinner"></div>
-</div>
+<div class="login-box">
 
-<!-- LOGIN -->
-<div class="login-container">
+    <img src="img/logo.png" class="logo-login">
 
-    <div class="login-box">
+    <h2 id="titulo">Login</h2>
 
-        <img src="logo.png" class="logo-login">
+    <input id="nome" placeholder="Nome" style="display:none;">
+    <input id="email" placeholder="Email">
+    <input id="senha" type="password" placeholder="Senha">
 
-        <h2>HamburgueriaZ</h2>
+    <button onclick="acaoPrincipal()" class="btn">Entrar</button>
 
-        <input id="email" type="email" placeholder="Email">
-        <input id="senha" type="password" placeholder="Senha">
-
-        <button id="btnLogin">Entrar</button>
-
-    </div>
+    <p id="toggle">
+        Não tem conta? <span onclick="toggleMode()">Cadastrar</span>
+    </p>
 
 </div>
 
-<script src="firebase.js"></script>
-<script src="script.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+
+<script src="js/firebase.js"></script>
+<script src="js/auth.js"></script>
 
 </body>
 </html>
