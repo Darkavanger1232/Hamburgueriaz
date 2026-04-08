@@ -1,45 +1,33 @@
-function loginAdmin(){
+<h2>Admin</h2>
+<ul id="listaAdmin"></ul>
 
-    auth.signInWithEmailAndPassword(email.value, senha.value)
-    .then(user=>{
+<script src="js/firebase.js"></script>
 
-        if(user.user.email !== "SEUEMAIL@ADMIN.COM"){
-            alert("Acesso negado");
-            return;
-        }
+<script>
+db.collection("pedidos").onSnapshot(snap=>{
 
-        document.getElementById("painel").style.display="block";
-        carregar();
+    listaAdmin.innerHTML = "";
+
+    snap.forEach(doc=>{
+
+        let p = doc.data();
+
+        listaAdmin.innerHTML += `
+        <li>
+        ${p.nomeCliente} - R$ ${p.total}
+        <button onclick="update('${doc.id}',2)">Preparando</button>
+        <button onclick="update('${doc.id}',3)">Entrega</button>
+        <button onclick="update('${doc.id}',4)">Finalizar</button>
+        </li>`;
     });
-}
 
-function addProduto(){
-    db.collection("produtos").add({
-        nome: nome.value,
-        preco: parseFloat(preco.value),
-        img: img.value
+});
+
+function update(id, etapa){
+
+    db.collection("pedidos").doc(id).update({
+        etapa: etapa
     });
-    carregar();
+
 }
-
-function carregar(){
-    let lista = document.getElementById("lista");
-    lista.innerHTML="";
-
-    db.collection("produtos").get().then(snap=>{
-        snap.forEach(doc=>{
-            let p = doc.data();
-
-            lista.innerHTML += `
-            <li>
-                ${p.nome} - R$ ${p.preco}
-                <button onclick="remover('${doc.id}')">❌</button>
-            </li>`;
-        });
-    });
-}
-
-function remover(id){
-    db.collection("produtos").doc(id).delete();
-    carregar();
-}
+</script>
