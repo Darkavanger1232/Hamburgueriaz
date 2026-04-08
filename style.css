@@ -1,4 +1,35 @@
-/* CENTRALIZA TUDO */
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(135deg, #EA1D2C, #ff4d4d);
+}
+
+/* LOADING */
+#loading {
+    position: fixed;
+    width: 100%;
+    height: 100%;
+    background: #EA1D2C;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+.spinner {
+    width: 45px;
+    height: 45px;
+    border: 5px solid white;
+    border-top: 5px solid transparent;
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+/* CENTRALIZA */
 .login-container {
     display: flex;
     justify-content: center;
@@ -6,46 +37,66 @@
     height: 100vh;
 }
 
-/* CAIXA */
+/* BOX */
 .login-box {
     background: white;
     padding: 30px;
-    border-radius: 15px;
+    border-radius: 20px;
     width: 320px;
     text-align: center;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    animation: fadeUp 0.7s ease;
 }
 
-/* LOGO CONTROLADA */
+@keyframes fadeUp {
+    from {
+        opacity: 0;
+        transform: translateY(40px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* LOGO */
 .logo-login {
-    width: 160px; /* 🔥 antes tava gigante */
+    width: 140px;
     margin-bottom: 15px;
+    animation: zoomIn 0.8s ease;
 }
 
-/* INPUTS */
-.login-box input {
+@keyframes zoomIn {
+    from { transform: scale(0.6); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* INPUT */
+input {
     width: 100%;
-    padding: 10px;
+    padding: 12px;
     margin: 8px 0;
-    border-radius: 8px;
+    border-radius: 10px;
     border: 1px solid #ccc;
 }
 
 /* BOTÃO */
-.login-box button {
+button {
     width: 100%;
     padding: 12px;
     background: #EA1D2C;
     color: white;
     border: none;
-    border-radius: 8px;
+    border-radius: 10px;
     margin-top: 10px;
     cursor: pointer;
+    transition: 0.3s;
 }
 
-/* FUNDO */
-body {
-    margin: 0;
-    font-family: Arial;
-    background: linear-gradient(135deg, #EA1D2C, #ff4d4d);
+button:hover {
+    opacity: 0.9;
+}
+
+button:active {
+    transform: scale(0.97);
 }
