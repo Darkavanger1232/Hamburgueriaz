@@ -1,0 +1,31 @@
+<h2>Status do Pedido</h2>
+<div id="status"></div>
+
+<script src="js/firebase.js"></script>
+
+<script>
+const url = new URLSearchParams(window.location.search);
+const id = url.get("id");
+
+db.collection("pedidos").doc(id)
+.onSnapshot(doc=>{
+
+    let p = doc.data();
+
+    let etapas = [
+        "Recebido",
+        "Preparando",
+        "Entrega",
+        "Finalizado"
+    ];
+
+    let html = "";
+
+    etapas.forEach((e,i)=>{
+        html += `<p style="${i<=p.etapa?'color:green':''}">${e}</p>`;
+    });
+
+    status.innerHTML = html;
+
+});
+</script>
