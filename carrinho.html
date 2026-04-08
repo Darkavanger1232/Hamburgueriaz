@@ -1,23 +1,18 @@
-let carrinho = [];
+<body>
 
-pagamento.addEventListener("change", () => {
-    pixBox.style.display = pagamento.value === "PIX" ? "block" : "none";
-});
+<header>
+    <h2>Seu Pedido</h2>
+</header>
 
-function add(nome, preco){
-    carrinho.push({nome, preco});
-    atualizar();
-}
+<div class="container">
+    <ul id="listaCarrinho"></ul>
 
-function atualizar(){
+    <h3>Total: R$ <span id="total">0</span></h3>
 
-    let total = 0;
-    lista.innerHTML = "";
+    <a href="pagamento.html">
+        <button>Continuar</button>
+    </a>
+</div>
 
-    carrinho.forEach(i=>{
-        total += i.preco;
-        lista.innerHTML += `<li>${i.nome} - R$ ${i.preco}</li>`;
-    });
-
-    total.innerText = total;
-}
+<script src="script.js"></script>
+</body>
