@@ -1,10 +1,15 @@
-const firebaseConfig = {
-  apiKey: "SUA_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_ID",
-};
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
 
-firebase.initializeApp(firebaseConfig);
+    match /usuarios/{userId} {
+      allow read, write: if request.auth.uid == userId;
+    }
 
-const auth = firebase.auth();
-const db = firebase.firestore();
+    match /pedidos/{id} {
+      allow create: if request.auth != null;
+      allow read: if request.auth.uid == resource.data.userId;
+      allow update: if request.auth != null;
+    }
+  }
+}
