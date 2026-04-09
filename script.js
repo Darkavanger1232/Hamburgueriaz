@@ -1,9 +1,12 @@
 // 🔥 CONFIG FIREBASE
 const firebaseConfig = {
-  apiKey: "SUA_KEY",
-  authDomain: "SEU_PROJETO.firebaseapp.com",
-  projectId: "SEU_ID",
-};
+  apiKey: "AIzaSyBtNslNlc5wm5hg11bp_K4oyMCCG0-pO0w",
+  authDomain: "hamburgueriaz-ede35.firebaseapp.com",
+  projectId: "hamburgueriaz-ede35",
+  storageBucket: "hamburgueriaz-ede35.firebasestorage.app",
+  messagingSenderId: "463524468857",
+  appId: "1:463524468857:web:a430a08a93c02dc0cadca8",
+  measurementId: "G-H1XJJ2WPBJ"
 
 firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
