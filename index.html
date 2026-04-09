@@ -3,11 +3,10 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Login - HamburgueriaZ</title>
+<title>Login</title>
 
 <link rel="stylesheet" href="style.css">
 
-<!-- Firebase -->
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
 <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
@@ -19,22 +18,24 @@
 <div class="card">
 
     <img src="logo.png" class="logo">
-    <h2>HamburgueriaZ</h2>
+    <h2>Entrar</h2>
 
-    <!-- LOGIN -->
-    <div id="loginBox">
-        <input type="email" id="emailLogin" placeholder="Email">
-        <input type="password" id="senhaLogin" placeholder="Senha">
+    <input type="email" id="emailLogin" placeholder="Email">
+    <input type="password" id="senhaLogin" placeholder="Senha">
 
-        <button onclick="login()">Entrar</button>
+    <button onclick="login()">Entrar</button>
 
-        <p>Não tem conta? 
-            <span onclick="mostrarCadastro()">Cadastrar</span>
-        </p>
-    </div>
+    <p>Não tem conta? 
+        <a href="cadastro.html">Cadastrar</a>
+    </p>
 
-    <!-- CADASTRO -->
-    <div id="cadastroBox" class="hidden">
+</div>
+
+<script src="firebase.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>    <div id="cadastroBox" class="hidden">
         <input type="text" id="nomeCadastro" placeholder="Nome">
         <input type="email" id="emailCadastro" placeholder="Email">
         <input type="password" id="senhaCadastro" placeholder="Senha">
