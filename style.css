@@ -1,40 +1,60 @@
-body {
-    margin: 0;
-    font-family: Arial;
-    background: #EA1D2C;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    height: 100vh;
+body.login-body{
+    background:#EA1D2C;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    font-family:Arial;
 }
 
-/* CONTAINER CENTRAL */
-.container {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    width: 90%;
-    max-width: 380px;
-
-    text-align: center;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+.card{
+    background:white;
+    padding:30px;
+    border-radius:15px;
+    width:90%;
+    max-width:350px;
+    text-align:center;
+    box-shadow:0 10px 30px rgba(0,0,0,0.2);
 }
 
-/* LOGO CONTROLADA */
-.logo {
-    width: 120px;
-    max-width: 100%;
-    margin-bottom: 10px;
+.logo{
+    width:120px;
+    margin-bottom:10px;
 }
 
-/* INPUTS */
-input {
-    width: 100%;
-    padding: 12px;
-    margin: 6px 0;
+input{
+    width:100%;
+    padding:12px;
+    margin:8px 0;
+    border-radius:8px;
+    border:1px solid #ccc;
+}
 
+button{
+    width:100%;
+    padding:12px;
+    margin-top:10px;
+    border:none;
+    border-radius:8px;
+    background:#EA1D2C;
+    color:white;
+    font-weight:bold;
+    cursor:pointer;
+}
+
+button:hover{
+    background:#c41624;
+}
+
+.hidden{
+    display:none;
+}
+
+span{
+    color:#EA1D2C;
+    cursor:pointer;
+    font-weight:bold;
+}
     border-radius: 8px;
     border: 1px solid #ccc;
 }
