@@ -1,4 +1,10 @@
-function login() {
+function toggleCadastro(){
+    const box = document.getElementById("cadastroBox");
+    box.style.display = box.style.display === "none" ? "block" : "none";
+}
+
+// LOGIN
+function login(){
     const email = document.getElementById("email").value;
     const senha = document.getElementById("senha").value;
 
@@ -6,16 +12,24 @@ function login() {
     .then(() => {
         window.location.href = "home.html";
     })
-    .catch(err => alert("Erro: " + err.message));
+    .catch(err => alert(err.message));
 }
 
-function cadastrar() {
-    const email = document.getElementById("email").value;
-    const senha = document.getElementById("senha").value;
+// CADASTRO
+function cadastrar(){
+    const nome = document.getElementById("nome").value;
+    const email = document.getElementById("emailCad").value;
+    const senha = document.getElementById("senhaCad").value;
 
     auth.createUserWithEmailAndPassword(email, senha)
-    .then(() => {
-        alert("Conta criada com sucesso!");
+    .then(user => {
+        return db.collection("usuarios").doc(user.user.uid).set({
+            nome: nome,
+            email: email
+        });
     })
-    .catch(err => alert("Erro: " + err.message));
+    .then(() => {
+        alert("Conta criada!");
+    })
+    .catch(err => alert(err.message));
 }
