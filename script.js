@@ -12,42 +12,36 @@ firebase.initializeApp(firebaseConfig);
 const auth = firebase.auth();
 
 // 🔐 LOGIN
-function login() {
-    let email = document.getElementById("email").value;
-    let senha = document.getElementById("senha").value;
+function login(){
+    let email = document.getElementById("emailLogin").value;
+    let senha = document.getElementById("senhaLogin").value;
 
     auth.signInWithEmailAndPassword(email, senha)
     .then(() => {
-        window.location.href = "home.html";
+        window.location.href = "inicio.html";
     })
-    .catch(error => {
-        alert("Erro: " + error.message);
+    .catch(err => {
+        alert("Erro: " + err.message);
     });
 }
 
-// 🆕 CADASTRO
-function cadastrar() {
-    let nome = document.getElementById("nome").value;
-    let email = document.getElementById("emailCad").value;
-    let senha = document.getElementById("senhaCad").value;
+function cadastrar(){
+    let nome = document.getElementById("nomeCadastro").value;
+    let email = document.getElementById("emailCadastro").value;
+    let senha = document.getElementById("senhaCadastro").value;
 
     auth.createUserWithEmailAndPassword(email, senha)
-    .then(() => {
-        alert("Cadastro realizado!");
-        mostrarLogin();
+    .then(user => {
+        return db.collection("usuarios").doc(user.user.uid).set({
+            nome: nome,
+            email: email
+        });
     })
-    .catch(error => {
-        alert("Erro: " + error.message);
+    .then(() => {
+        alert("Conta criada!");
+        window.location.href = "login.html";
+    })
+    .catch(err => {
+        alert("Erro: " + err.message);
     });
-}
-
-// 🔄 TROCAR TELAS
-function mostrarCadastro(){
-    document.getElementById("loginBox").style.display = "none";
-    document.getElementById("cadastroBox").style.display = "block";
-}
-
-function mostrarLogin(){
-    document.getElementById("loginBox").style.display = "block";
-    document.getElementById("cadastroBox").style.display = "none";
 }
