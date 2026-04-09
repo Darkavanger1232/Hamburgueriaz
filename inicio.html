@@ -1,40 +1,40 @@
 <!DOCTYPE html>
-<html>
+<html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>HamburgueriaZ</title>
+
 <link rel="stylesheet" href="css/style.css">
+
 </head>
 
 <body>
 
-<header>🍔 HamburgueriaZ</header>
-
 <div class="container">
 
-<div class="cardapio" id="cardapio"></div>
+    <h2>🍔 Cardápio</h2>
 
-<div class="carrinho">
+    <div id="cardapio"></div>
 
-<input id="endereco" placeholder="Endereço">
-<input id="telefone" placeholder="Telefone">
+    <h3>🛒 Carrinho</h3>
+    <ul id="carrinho"></ul>
 
-<select id="pagamento">
-<option value="PIX">PIX</option>
-<option value="Cartão">Cartão</option>
-</select>
+    <h2>Total: R$ <span id="total">0</span></h2>
 
-<div id="pixBox" style="display:none;">
-PIX: hamburgueriaz@pix.com
+    <button onclick="finalizar()">Finalizar Pedido</button>
+
 </div>
 
-<ul id="lista"></ul>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
 
-<h3>Total: R$ <span id="total">0</span></h3>
+<script src="js/firebase.js"></script>
+<script src="js/app.js"></script>
 
-<button onclick="finalizarPedido()" class="btn">
-Finalizar Pedido
-</button>
+</body>
+</html></button>
 
 </div>
 
