@@ -27,14 +27,26 @@
 
     <button onclick="login()">Entrar</button>
 
-    <div class="link">
-        Não tem conta? 
-        <span onclick="cadastrar()">Cadastrar</span>
+    <p class="link">
+        Não tem conta? <span onclick="toggleCadastro()">Cadastrar</span>
+    </p>
+
+    <!-- CADASTRO -->
+    <div id="cadastroBox" style="display:none;">
+        <input type="text" id="nome" placeholder="Nome">
+        <input type="email" id="emailCad" placeholder="Email">
+        <input type="password" id="senhaCad" placeholder="Senha">
+
+        <button onclick="cadastrar()">Criar Conta</button>
     </div>
 
 </div>
 
 <script src="js/firebase.js"></script>
+<script src="js/auth.js"></script>
+
+</body>
+</html><script src="js/firebase.js"></script>
 <script src="js/auth.js"></script>
 
 </body>
