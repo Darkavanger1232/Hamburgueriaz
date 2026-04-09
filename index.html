@@ -8,63 +8,38 @@
 <link rel="stylesheet" href="style.css">
 
 <!-- Firebase -->
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-auth-compat.js"></script>
-<script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-firestore-compat.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-auth.js"></script>
+<script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-firestore.js"></script>
 
 </head>
 
-<body>
+<body class="login-body">
 
-<div class="container">
+<div class="card">
 
     <img src="logo.png" class="logo">
-
     <h2>HamburgueriaZ</h2>
 
-    <input type="email" id="email" placeholder="Email">
-    <input type="password" id="senha" placeholder="Senha">
+    <!-- LOGIN -->
+    <div id="loginBox">
+        <input type="email" id="emailLogin" placeholder="Email">
+        <input type="password" id="senhaLogin" placeholder="Senha">
 
-    <button onclick="login()">Entrar</button>
+        <button onclick="login()">Entrar</button>
 
-    <p class="link">
-        Não tem conta? <span onclick="toggleCadastro()">Cadastrar</span>
-    </p>
-
-    <div id="cadastroBox">
-        <input type="text" id="nome" placeholder="Nome">
-        <input type="email" id="emailCad" placeholder="Email">
-        <input type="password" id="senhaCad" placeholder="Senha">
-        <button onclick="cadastrar()">Criar Conta</button>
+        <p>Não tem conta? 
+            <span onclick="mostrarCadastro()">Cadastrar</span>
+        </p>
     </div>
 
-</div>
-
-<script src="firebase.js"></script>
-<script src="auth.js"></script>
-
-</body>
-</html>        <input type="email" id="emailCad" placeholder="Email">
-        <input type="password" id="senhaCad" placeholder="Senha">
+    <!-- CADASTRO -->
+    <div id="cadastroBox" class="hidden">
+        <input type="text" id="nomeCadastro" placeholder="Nome">
+        <input type="email" id="emailCadastro" placeholder="Email">
+        <input type="password" id="senhaCadastro" placeholder="Senha">
 
         <button onclick="cadastrar()">Criar Conta</button>
-    </div>
-
-</div>
-
-<script src="js/firebase.js"></script>
-<script src="js/auth.js"></script>
-
-</body>
-</html><script src="js/firebase.js"></script>
-<script src="js/auth.js"></script>
-
-</body>
-</html>        <input type="text" id="nome" placeholder="Nome">
-        <input type="email" id="emailCad" placeholder="Email">
-        <input type="password" id="senhaCad" placeholder="Senha">
-
-        <button onclick="cadastrar()">Cadastrar</button>
 
         <p>Já tem conta? 
             <span onclick="mostrarLogin()">Entrar</span>
@@ -73,6 +48,8 @@
 
 </div>
 
+<script src="firebase.js"></script>
 <script src="script.js"></script>
+
 </body>
 </html>
